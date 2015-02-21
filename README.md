@@ -117,14 +117,22 @@ cd
 /home/ldm/bin/ldmadmin start
 ```
 
-## (optional, as superuser) Set to Start on Boot
-_e.g._
+## Keep LDM Running
+
+Create a file that starts LDM if it is not running. 
 ```
-vim /etc/rc.local
+#!/bin/bash
+/home/ldm/bin/ldmadmin isrunning
+
+if [[ $? != 0 ]]
+then
+        /home/ldm/bin/ldmadmin clean
+        /home/ldm/bin/ldmadmin start
+fi
 ```
-Add the following entry:
+Use cron to schedule the task to check LDM regularly.
 ```
-/home/ldm/bin/ldmadmin start > /tmp/ldmd-start.log 2>&1
+crontab -e
 ```
 
 # Example: Add A File to the Product Queue
