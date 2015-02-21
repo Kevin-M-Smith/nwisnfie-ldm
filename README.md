@@ -126,6 +126,7 @@ Create a file that starts LDM if it is not running.
 
 if [[ $? != 0 ]]
 then
+        /home/ldm/bin/pqcheck -F
         /home/ldm/bin/ldmadmin clean
         /home/ldm/bin/ldmadmin start
 fi
